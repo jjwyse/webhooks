@@ -29,10 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // development only
 if ('development' == app.get('env')) { app.use(express.errorHandler()); }
 
-app.get('/', routes.index);
-app.post('/', routes.callback);
-app.put('/', routes.callback);
-
 var httpServer = http.createServer(app);
 var io = require('socket.io')(httpServer);
 
@@ -42,8 +38,8 @@ httpServer.listen(app.get('port'), function () {
 
 io.on('connection', function (socket) {
    console.log('socket.io initialization');
-   socket.emit('news', { hello: 'world' });
-   socket.on('my other event', function (data) {
-     console.log(data);
-   });
 });
+
+app.get('/', routes.index);
+app.post('/', routes.callback(io));
+app.put('/', routes.callback(io));

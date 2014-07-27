@@ -27,9 +27,8 @@ html(lang='en')
 
          | <script>
          |  var socket = io();
-         |  socket.on('news', function (data) {
+         |  socket.on('webhook', function (data) {
          |    console.log(data);
-         |    socket.emit('my other event', { my: 'data' });
          | });
          | </script>
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
