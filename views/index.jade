@@ -19,8 +19,9 @@ html(lang='en')
          .jumbotron
             .container
                h1 webhooks
-               .webhooks
             hr
+         .container
+            .webhooks
       footer
          .container
             p &copy;
@@ -33,4 +34,6 @@ html(lang='en')
             socket.on('webhook', function (data) {
                console.log(data);
                $('.webhooks').append(data);
+               $('.webhooks').append('<br>');
+               $('.webhooks').append('<br>');
             });
