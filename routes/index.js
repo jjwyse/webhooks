@@ -7,6 +7,6 @@ exports.callback = function(socket) {
       var json = JSON.stringify(req.body);
       console.log("Sending webhook JSON to UI: " + json);
       socket.emit('webhook', json);
-      res.send('{"success": true}');
+      res.end();
    }
 }
