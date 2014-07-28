@@ -31,9 +31,18 @@ html(lang='en')
 
          script.
             var socket = io();
-            socket.on('webhook', function (data) {
-               console.log(data);
-               $('.webhooks').append(data);
+            socket.on('webhook', function (webhook) {
+               console.log(webhook);
+               var body = webhook.body;
+               var headers = webhook.headers;
+               $('.webhooks').append('<h3>HTTP body:</h3>');
+               $('.webhooks').append('<br>');
+               $('.webhooks').append(body);
+               $('.webhooks').append('<br>');
+               $('.webhooks').append('<h3>HTTP headers:</h3>');
+               $('.webhooks').append('<br>');
+               $('.webhooks').append(headers);
                $('.webhooks').append('<br>');
                $('.webhooks').append('<br>');
+               $('.webhooks').append('<hr>');
             });

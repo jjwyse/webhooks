@@ -4,9 +4,14 @@ exports.index = function (req, res) {
 
 exports.callback = function(socket) {
    return function(req,res) {
-      var json = JSON.stringify(req.body);
-      console.log("Sending webhook JSON to UI: " + json);
-      socket.emit('webhook', json);
+      var body = JSON.stringify(req.body);
+      var headers = JSON.stringify(req.headers);
+      var webhookJson = {};
+      webhookJson['body'] = body;
+      webhookJson['headers'] = headers;
+      console.log(webhookJson);
+      console.log("Sending webhook to UI");
+      socket.emit('webhook', webhookJson);
       res.end();
    }
 }
