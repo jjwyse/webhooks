@@ -15,7 +15,7 @@ var db = monk(config.mongodbendpoint, {
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 2997);
+app.set('port', process.env.PORT || 2999);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon("/images/favicon.ico"));
