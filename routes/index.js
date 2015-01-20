@@ -12,6 +12,6 @@ exports.callback = function(socket) {
       console.log(webhookJson);
       console.log("Sending webhook to UI");
       socket.emit('webhook', webhookJson);
-      res.send('{}');
+      res.send('{"i_like_turtles": true}');
    }
 }
