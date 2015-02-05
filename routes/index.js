@@ -3,7 +3,7 @@ exports.index = function (req, res) {
 };
 
 exports.callback = function(socket) {
-   return function(req,res) {
+   return function(req, res) {
       var body = JSON.stringify(req.body);
       var headers = JSON.stringify(req.headers);
       var webhookJson = {};

@@ -25,7 +25,7 @@ html(lang='en')
       footer
          .container
             p &copy;
-               a(href='http://about.me/jjwyse', target='_blank')  josh wyse
+               a(href='http://joshuawyse.com', target='_blank')  josh wyse
                |  2014
 
 
@@ -35,14 +35,15 @@ html(lang='en')
                console.log(webhook);
                var body = webhook.body;
                var headers = webhook.headers;
-               $('.webhooks').append('<h3>HTTP body:</h3>');
-               $('.webhooks').append('<br>');
-               $('.webhooks').append(body);
-               $('.webhooks').append('<br>');
-               $('.webhooks').append('<h3>HTTP headers:</h3>');
-               $('.webhooks').append('<br>');
-               $('.webhooks').append(headers);
-               $('.webhooks').append('<br>');
-               $('.webhooks').append('<br>');
-               $('.webhooks').append('<hr>');
+               $('.webhooks').prepend('<br>');
+               $('.webhooks').prepend('<hr>');
+               $('.webhooks').prepend('<br>');
+               $('.webhooks').prepend(headers);
+               $('.webhooks').prepend('<br>');
+               $('.webhooks').prepend('<h3>Headers:</h3>');
+               $('.webhooks').prepend(body);
+               $('.webhooks').prepend('<br>');
+               $('.webhooks').prepend('<h3>Body:</h3>');
+               $('.webhooks').prepend('<br>');
+               $('.webhooks').prepend(new Date());
             });
