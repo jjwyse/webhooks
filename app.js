@@ -6,11 +6,6 @@ var http = require('http');
 var path = require('path');
 
 var monk = require('monk');
-var config = require('./config');
-var db = monk(config.mongodbendpoint, {
-   username: config.mongodbusername,
-   password: config.mongodbpassword
-});
 
 var app = express();
 
