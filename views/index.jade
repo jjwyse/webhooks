@@ -18,21 +18,25 @@ html(lang='en')
       .content
          .jumbotron
             .container
-               h1 webhooks
+               h1 👂 listener.
             hr
          .container
             .webhooks
       footer
          .container
             p &copy;
-               a(href='http://joshuawyse.com', target='_blank')  josh wyse
-               |  2014
+               a(href='http://joshuawyse.com', target='_blank')  jjwyse
+               |  2018
 
 
          script.
             var socket = io();
-            socket.on('webhook', function (webhook) {
-               console.log(webhook);
+            const uri = window.location.pathname;
+            console.log(`Listening for events on ${uri}`);
+            if (uri === '/') {
+               $('.webhooks').prepend('<h2>v0.2.0 update: now supports custom URIs, so you can go to any /yourUri and webhooks that are sent to that will only be sent to any clients on that URI</h2>');
+            }
+            socket.on(uri, function (webhook) {
                var body = webhook.body;
                var headers = webhook.headers;
                $('.webhooks').prepend('<br>');

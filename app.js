@@ -1,15 +1,9 @@
-var express = require('express');
+const express = require('express');
+const http = require('http');
+const path = require('path');
 
-var routes = require('./routes');
+const app = express();
 
-var http = require('http');
-var path = require('path');
-
-var monk = require('monk');
-
-var app = express();
-
-// all environments
 app.set('port', process.env.PORT || 2999);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -24,17 +18,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 // development only
 if ('development' == app.get('env')) { app.use(express.errorHandler()); }
 
-var httpServer = http.createServer(app);
-var io = require('socket.io')(httpServer);
+const httpServer = http.createServer(app);
+const io = require('socket.io')(httpServer);
 
-httpServer.listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// start up http server
+httpServer.listen(app.get('port'), () => console.log('Express server listening on port ' + app.get('port')));
 
-io.on('connection', function (socket) {
-   console.log('socket.io initialization');
-});
+// listen for websocket connection from client
+io.on('connection', (socket) => console.log('socket.io initialization'));
 
-app.get('/', routes.index);
-app.post('/', routes.callback(io));
-app.put('/', routes.callback(io));
+const webhookHandler = socket => {
+  return (req, res) => {
+    const webhookJson = { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) };
+    const topic = req.params.uri ? `/${req.params.uri}` : '/';
+    console.log(`Sending webhook to websocket listener for ${topic}`);
+    socket.emit(topic, webhookJson);
+    res.status(200).json({ i_like_turtles: true });
+  }
+};
+
+// view routes
+app.get('/', (req, res) => res.render('index', { title: `Webhooks for /`}));
+app.get('/:uri', (req, res) => res.render('index', { title: `Webhooks for /${req.params.uri}` }));
+
+// webhook handler routes
+app.post('/', webhookHandler(io));
+app.post('/:uri', webhookHandler(io));
+app.put('/', webhookHandler(io));
+app.put('/:uri', webhookHandler(io));
