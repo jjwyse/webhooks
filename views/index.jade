@@ -7,26 +7,20 @@ html(lang='en')
       meta(name='author', content='jjwyse')
 
       link(rel='shortcut icon', href='/images/favicon.ico')
-      link(rel='stylesheet', href='/css/bootstrap.min.css')
 
       script(src='https://cdn.socket.io/socket.io-1.0.6.js')
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
-      script(src='/js/bootstrap.min.js')
 
       title=title
    body
-      .content
-         .jumbotron
-            .container
-               h1 👂 listener.
-            hr
-         .container
-            .webhooks
+      header
+         h1 👂 for webhooks ...
+         hr
+         .webhooks
       footer
-         .container
-            p &copy;
-               a(href='http://joshuawyse.com', target='_blank')  jjwyse
-               |  2018
+         p &copy;
+            a(href='http://joshuawyse.com', target='_blank')  jjwyse
+            |  2018
 
 
          script.
