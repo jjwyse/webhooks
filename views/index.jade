@@ -14,7 +14,6 @@ html(lang='en')
    body
       header
          h1 👂 for webhooks ...
-         hr
          #webhooks
       footer
          p &copy;
@@ -27,16 +26,16 @@ html(lang='en')
             const uri = window.location.pathname;
             console.log(`Listening for events on ${uri}`);
             if (uri === '/') {
-              var warning = document.createElement("div");
+              var warning = document.createElement('div');
               warning.innerHTML = '<h2>v0.2.0 update: now supports custom URIs, so you can go to any /yourUri and webhooks that are sent to that will only be sent to any clients on that URI</h2>';
-              document.getElementById('webhooks').appendChild(warning);
+              document.getElementById('webhooks').append(warning);
             }
 
             socket.on(uri, function (webhook) {
               var body = webhook.body;
               var headers = webhook.headers;
 
-              var webhook = document.createElement("div");
+              var webhook = document.createElement('div');
               webhook.innerHTML = `<hr>${new Date()}<hr><h3>Headers:</h3>${headers}<br><h3>Body:</h3>${body}<br><br>`;
-              document.getElementById('webhooks').appendChild(webhook);
+              document.getElementById('webhooks').prepend(webhook);
             });
