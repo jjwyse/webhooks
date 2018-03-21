@@ -9,14 +9,13 @@ html(lang='en')
       link(rel='shortcut icon', href='/images/favicon.ico')
 
       script(src='https://cdn.socket.io/socket.io-1.0.6.js')
-      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
 
       title=title
    body
       header
          h1 👂 for webhooks ...
          hr
-         .webhooks
+         #webhooks
       footer
          p &copy;
             a(href='http://joshuawyse.com', target='_blank')  jjwyse
@@ -28,20 +27,16 @@ html(lang='en')
             const uri = window.location.pathname;
             console.log(`Listening for events on ${uri}`);
             if (uri === '/') {
-               $('.webhooks').prepend('<h2>v0.2.0 update: now supports custom URIs, so you can go to any /yourUri and webhooks that are sent to that will only be sent to any clients on that URI</h2>');
+              var warning = document.createElement("div");
+              warning.innerHTML = '<h2>v0.2.0 update: now supports custom URIs, so you can go to any /yourUri and webhooks that are sent to that will only be sent to any clients on that URI</h2>';
+              document.getElementById('webhooks').appendChild(warning);
             }
+
             socket.on(uri, function (webhook) {
-               var body = webhook.body;
-               var headers = webhook.headers;
-               $('.webhooks').prepend('<br>');
-               $('.webhooks').prepend('<hr>');
-               $('.webhooks').prepend('<br>');
-               $('.webhooks').prepend(headers);
-               $('.webhooks').prepend('<br>');
-               $('.webhooks').prepend('<h3>Headers:</h3>');
-               $('.webhooks').prepend(body);
-               $('.webhooks').prepend('<br>');
-               $('.webhooks').prepend('<h3>Body:</h3>');
-               $('.webhooks').prepend('<br>');
-               $('.webhooks').prepend(new Date());
+              var body = webhook.body;
+              var headers = webhook.headers;
+
+              var webhook = document.createElement("div");
+              webhook.innerHTML = `<hr>${new Date()}<hr><h3>Headers:</h3>${headers}<br><h3>Body:</h3>${body}<br><br>`;
+              document.getElementById('webhooks').appendChild(webhook);
             });
