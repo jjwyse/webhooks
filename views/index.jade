@@ -8,7 +8,7 @@ html(lang='en')
 
       link(rel='shortcut icon', href='/images/favicon.ico')
 
-      script(src='https://cdn.socket.io/socket.io-1.0.6.js')
+      script(src='/socket.io/socket.io.js')
 
       title=title
    body
@@ -32,6 +32,7 @@ html(lang='en')
             }
 
             socket.on(uri, function (webhook) {
+              console.log('Received webhook call')
               var body = webhook.body;
               var headers = webhook.headers;
 

@@ -9,7 +9,7 @@
     "cors": "^2.8.0",
     "express": "3.4.8",
     "jade": "*",
-    "socket.io": "*"
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "^4.19.0"
